@@ -245,10 +245,17 @@ section "std.list" {
     (assertEqual [1 2 3] (list.optionals true [1 2 3]))
   ];
   replicate = assertEqual [1 1 1 1 1 1] (list.replicate 6 1);
+  sublist = string.unlines [
+    (assertEqual [ 3 4 ] (list.sublist { start = 2; end = 3; } [ 1 2 3 4 5 ]))
+    (assertEqual [ 3 4 5 ] (list.sublist { start = 2; } [ 1 2 3 4 5 ]))
+    (assertEqual [ 1 2 3 ] (list.sublist { end = 2; } [ 1 2 3 4 5 ]))
+    (assertEqual [ 1 2 3 4 5 ] (list.sublist { } [ 1 2 3 4 5 ]))
+    (assertEqual [] (list.sublist { start = 2; end = 1; } [ 1 2 3 4 5 ]))
+  ];
   slice = string.unlines [
-    (assertEqual [3 4] (list.slice 2 2 [ 1 2 3 4 5 ]))
-    (assertEqual [3 4 5] (list.slice 2 30 [ 1 2 3 4 5 ]))
-    (assertEqual [2 3 4 5] (list.slice 1 null [ 1 2 3 4 5 ]))
+    (assertEqual [3 4] (list.slice { offset = 2; length = 2; } [ 1 2 3 4 5 ]))
+    (assertEqual [3 4 5] (list.slice { offset = 2; length = 30; } [ 1 2 3 4 5 ]))
+    (assertEqual [2 3 4 5] (list.slice { offset = 1; } [ 1 2 3 4 5 ]))
   ];
   range = assertEqual [1 2 3 4 5] (list.range 1 5);
   partition = string.unlines [
