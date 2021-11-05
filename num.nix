@@ -455,7 +455,7 @@ in rec {
       */
       bitNot = builtins.bitXor (-1); # -1 is all 1's in 2's complement
 
-      /* bit :: int -> bool
+      /* bit :: int -> int
 
          Gives the number whose 2's complement binary representation contains a
          single bit set at the given index, in which index 0 corresponds to the
